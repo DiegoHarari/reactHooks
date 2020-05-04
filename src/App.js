@@ -1,26 +1,30 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
 
-function App() {
+
+function Add() {
+  const [numbers, setNumbers] = useState({});
+  const [result, setResult] = useState("");
+
+  function calculate () {
+    const {firstNum, secondNum} = numbers
+    setResult(Number(firstNum) + Number(secondNum) )
+  }
+
+  function handleChange(e) {
+    const {name, value} = e.target
+
+    const newNumbers = { ...numbers, [name]: value };
+    setNumbers(newNumbers);
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <input type="number" name="firstNum" onChange={ (e) => handleChange(e)}/>
+      <input type="number" name="secondNum" onChange={ (e) => handleChange(e)}/>
+      <button onClick={calculate}>Add</button>
+      <p>Result: {result}</p>
+    </>
   );
-}
+};
 
-export default App;
+export default Add;
